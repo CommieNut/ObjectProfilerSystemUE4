@@ -8,6 +8,7 @@
 #include "Components/InputComponent.h"
 #include "GameFramework/InputSettings.h"
 #include "Kismet/GameplayStatics.h"
+#include "Profiling/ProfilingComponent.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -87,6 +88,9 @@ void AObjectProfilerSystemCharacter::SetupPlayerInputComponent(class UInputCompo
 	// Bind fire event
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AObjectProfilerSystemCharacter::OnFire);
 
+	//Bind interaction event
+	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &AObjectProfilerSystemCharacter::Interact);
+
 	// Bind movement events
 	PlayerInputComponent->BindAxis("MoveForward", this, &AObjectProfilerSystemCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AObjectProfilerSystemCharacter::MoveRight);
@@ -98,6 +102,9 @@ void AObjectProfilerSystemCharacter::SetupPlayerInputComponent(class UInputCompo
 	PlayerInputComponent->BindAxis("TurnRate", this, &AObjectProfilerSystemCharacter::TurnAtRate);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("LookUpRate", this, &AObjectProfilerSystemCharacter::LookUpAtRate);
+
+
+
 }
 
 void AObjectProfilerSystemCharacter::OnFire()
@@ -169,4 +176,29 @@ void AObjectProfilerSystemCharacter::LookUpAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
+}
+
+void AObjectProfilerSystemCharacter::Interact()
+{
+	FVector StartLocation = GetFirstPersonCameraComponent()->GetComponentLocation();
+	FVector EndLocation =  StartLocation +(GetFirstPersonCameraComponent()->GetForwardVector() * 500);
+	FHitResult Hit;
+	//Making sure that the line trace does not hit this actor
+	FCollisionQueryParams CollisionParam;
+	CollisionParam.AddIgnoredActor(this);
+	GetWorld()->LineTraceSingleByChannel(Hit, StartLocation, EndLocation, ECC_WorldDynamic, CollisionParam);
+	//if it hit something
+	if(Hit.bBlockingHit)
+	{
+		UProfilingComponent* Profiler = Hit.GetActor()->FindComponentByClass<UProfilingComponent>();
+		if(Profiler)
+		{
+			 UE_LOG(LogTemp, Error, TEXT("PROFILER FOUND"));
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("NOPE"));
+		}
+	}
+	
 }
