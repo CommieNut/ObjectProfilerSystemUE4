@@ -10,6 +10,9 @@
 #include "Kismet/GameplayStatics.h"
 #include "Profiling/ProfilingComponent.h"
 
+//TEMP
+#include "DrawDebugHelpers.h"
+
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
 //////////////////////////////////////////////////////////////////////////
@@ -187,6 +190,8 @@ void AObjectProfilerSystemCharacter::Interact()
 	FCollisionQueryParams CollisionParam;
 	CollisionParam.AddIgnoredActor(this);
 	GetWorld()->LineTraceSingleByChannel(Hit, StartLocation, EndLocation, ECC_WorldDynamic, CollisionParam);
+	DrawDebugLine(GetWorld(), StartLocation, EndLocation, FColor::Blue,true);
+	UE_LOG(LogTemp, Error, TEXT("LINETRACING..."));
 	//if it hit something
 	if(Hit.bBlockingHit)
 	{
@@ -194,6 +199,7 @@ void AObjectProfilerSystemCharacter::Interact()
 		if(Profiler)
 		{
 			 UE_LOG(LogTemp, Error, TEXT("PROFILER FOUND"));
+			 UpdateProfilerSystem(Profiler,Hit.GetActor());
 		}
 		else
 		{

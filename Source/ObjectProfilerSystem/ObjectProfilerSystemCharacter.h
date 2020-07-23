@@ -87,6 +87,9 @@ protected:
 
 	/** Interacts */
 	void Interact();
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void UpdateProfilerSystem(class UProfilingComponent* Profiler, AActor* Actor);
 	
 protected:
 	// APawn interface
