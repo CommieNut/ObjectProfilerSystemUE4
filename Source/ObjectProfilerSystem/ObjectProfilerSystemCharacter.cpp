@@ -186,21 +186,25 @@ void AObjectProfilerSystemCharacter::Interact()
 	FVector StartLocation = GetFirstPersonCameraComponent()->GetComponentLocation();
 	FVector EndLocation =  StartLocation +(GetFirstPersonCameraComponent()->GetForwardVector() * 500);
 	FHitResult Hit;
-	//Making sure that the line trace does not hit this actor
+	//Making sure that the line trace does not hit player
 	FCollisionQueryParams CollisionParam;
 	CollisionParam.AddIgnoredActor(this);
+	//actual line trace
 	GetWorld()->LineTraceSingleByChannel(Hit, StartLocation, EndLocation, ECC_WorldDynamic, CollisionParam);
-	DrawDebugLine(GetWorld(), StartLocation, EndLocation, FColor::Blue,true);
+	//Useful if 
+	//DrawDebugLine(GetWorld(), StartLocation, EndLocation, FColor::Blue,true);
 	UE_LOG(LogTemp, Error, TEXT("LINETRACING..."));
 	//if it hit something
 	if(Hit.bBlockingHit)
 	{
 		UProfilingComponent* Profiler = Hit.GetActor()->FindComponentByClass<UProfilingComponent>();
+		//current actor has profiler component
 		if(Profiler)
 		{
 			 UE_LOG(LogTemp, Error, TEXT("PROFILER FOUND"));
 			 UpdateProfilerSystem(Profiler,Hit.GetActor());
 		}
+		//current actor does not have profiler component
 		else
 		{
 			UE_LOG(LogTemp, Error, TEXT("NOPE"));
