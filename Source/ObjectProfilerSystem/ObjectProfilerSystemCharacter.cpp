@@ -6,6 +6,7 @@
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
+#include "Engine/Engine.h"
 #include "GameFramework/InputSettings.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Kismet/GameplayStatics.h"
@@ -14,18 +15,22 @@
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
+#define PRNTSCRN(x) GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT(x));
+
 //////////////////////////////////////////////////////////////////////////
 // AObjectProfilerSystemCharacter
 
+
+
 AObjectProfilerSystemCharacter::AObjectProfilerSystemCharacter()
-{
+{	
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
 
 	// set our turn rates for input
 	BaseTurnRate = 45.f;
 	BaseLookUpRate = 45.f;
-
+	
 	// Create a CameraComponent	
 	FirstPersonCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("FirstPersonCamera"));
 	FirstPersonCameraComponent->SetupAttachment(GetCapsuleComponent());
@@ -82,6 +87,17 @@ AObjectProfilerSystemCharacter::AObjectProfilerSystemCharacter()
 
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
+
+	PrimaryActorTick.bCanEverTick = true;
+
+	// Costum Code Start
+
+	ProfilerDetectionCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Profiler Collision Capsule"));
+	ProfilerDetectionCapsule->SetupAttachment(FirstPersonCameraComponent);
+
+
+
+	// Costum Code End
 }
 
 void AObjectProfilerSystemCharacter::BeginPlay()
@@ -103,6 +119,21 @@ void AObjectProfilerSystemCharacter::BeginPlay()
 		VR_Gun->SetHiddenInGame(true, true);
 		Mesh1P->SetHiddenInGame(false, true);
 	}
+}
+
+void AObjectProfilerSystemCharacter::Tick(float DeltaSeconds)
+{
+	
+}
+
+void AObjectProfilerSystemCharacter::OnProfilerDetectionCapsuleOverlapStart(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	PRNTSCRN("Collided With Valid Object");
+}
+
+void AObjectProfilerSystemCharacter::OnProfilerDetectionCapsuleOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	PRNTSCRN("DeCollided With Valid Object");
 }
 
 //////////////////////////////////////////////////////////////////////////

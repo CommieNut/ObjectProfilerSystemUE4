@@ -37,7 +37,6 @@ void AObjectProfilerSystemProjectile::OnHit(UPrimitiveComponent* HitComp, AActor
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
-
 		Destroy();
 	}
 }

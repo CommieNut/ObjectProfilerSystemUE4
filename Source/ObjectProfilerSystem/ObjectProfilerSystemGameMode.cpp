@@ -13,5 +13,5 @@ AObjectProfilerSystemGameMode::AObjectProfilerSystemGameMode()
 	DefaultPawnClass = PlayerPawnClassFinder.Class;
 
 	// use our custom HUD class
-	HUDClass = AObjectProfilerSystemHUD::StaticClass();
+	// HUDClass = AObjectProfilerSystemHUD::StaticClass();
 }
