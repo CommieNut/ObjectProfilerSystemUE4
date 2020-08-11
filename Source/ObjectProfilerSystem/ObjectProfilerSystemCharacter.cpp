@@ -92,8 +92,8 @@ AObjectProfilerSystemCharacter::AObjectProfilerSystemCharacter()
 
 	// Costum Code Start
 
-	ProfilerDetectionCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Profiler Collision Capsule"));
-	ProfilerDetectionCapsule->SetupAttachment(FirstPersonCameraComponent);
+	//ProfilerDetectionCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Profiler Collision Capsule"));
+	//ProfilerDetectionCapsule->SetupAttachment(FirstPersonCameraComponent);
 
 
 
@@ -123,9 +123,9 @@ void AObjectProfilerSystemCharacter::BeginPlay()
 
 void AObjectProfilerSystemCharacter::Tick(float DeltaSeconds)
 {
-	
 }
 
+/*
 void AObjectProfilerSystemCharacter::OnProfilerDetectionCapsuleOverlapStart(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	PRNTSCRN("Collided With Valid Object");
@@ -135,6 +135,7 @@ void AObjectProfilerSystemCharacter::OnProfilerDetectionCapsuleOverlapEnd(UPrimi
 {
 	PRNTSCRN("DeCollided With Valid Object");
 }
+*/
 
 //////////////////////////////////////////////////////////////////////////
 // Input

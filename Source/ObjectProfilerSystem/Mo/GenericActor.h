@@ -14,7 +14,10 @@ class OBJECTPROFILERSYSTEM_API AGenericActor : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AGenericActor();
+	UPROPERTY(VisibleAnywhere, Category = "Mesh Related")
+		class UStaticMeshComponent * mainMesh;
 
+	//FName OutLineTag;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

@@ -15,8 +15,8 @@ class AObjectProfilerSystemCharacter : public ACharacter
 
 	// Costum Code Start
 
-	UPROPERTY(VisibleAnywhere, Category = "Profiler Variables") //Primary objective to read if the players is currently looking at an object.
-		class UCapsuleComponent* ProfilerDetectionCapsule; // Invisible capsule used for collisions, will be attached to player controller (camera).
+//	UPROPERTY(VisibleAnywhere, Category = "Profiler Variables") //Primary objective to read if the players is currently looking at an object.
+//		class UCapsuleComponent* ProfilerDetectionCapsule; // Invisible capsule used for collisions, will be attached to player controller (camera).
 
 	UPROPERTY(VisibleAnywhere, Category = "Profiler Variables")
 		bool IsTracking; //Tick based response to support UI reaction time.
@@ -24,11 +24,11 @@ class AObjectProfilerSystemCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, Category = "Profiler Variables")
 		bool IsBusyTracking; //Used to only track a single object at once. Ass for comedic effect
 
-	UFUNCTION()
-		void OnProfilerDetectionCapsuleOverlapStart(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+//	UFUNCTION()
+//		void OnProfilerDetectionCapsuleOverlapStart(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-	UFUNCTION()
-		void OnProfilerDetectionCapsuleOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+//	UFUNCTION()
+//		void OnProfilerDetectionCapsuleOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 	// Costum Code End
 
